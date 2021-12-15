@@ -1,15 +1,15 @@
 import { useSelector } from 'react-redux';
-import { CircularProgress, Grid } from '@material-ui/core';
+import { CircularProgress, Grid, Typography } from '@material-ui/core';
 import Post from './Post/Post';
 import useStyles from './styles';
 
-const Posts = ({ setCurrentId }) => {
+const Posts = ({ setCurrentId, isLoading }) => {
   const posts = useSelector((state) => state.posts);
   const classes = useStyles();
 
-  return !posts.length ? (
+  return isLoading ? (
     <CircularProgress />
-  ) : (
+  ) : posts.length ? (
     <Grid
       className={classes.container}
       container
@@ -22,6 +22,8 @@ const Posts = ({ setCurrentId }) => {
         </Grid>
       ))}
     </Grid>
+  ) : (
+    <Typography>Post your first memories here!</Typography>
   );
 };
 
